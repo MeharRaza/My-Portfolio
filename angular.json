@@ -29,6 +29,11 @@
                 "output": "assets"
               },
               {
+                "glob": "CNAME",
+                "input": "src/assets",
+                "output": ""
+              },
+              {
                 "glob": "favicon.ico",
                 "input": "src",
                 "output": ""
