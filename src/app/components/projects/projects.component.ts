@@ -107,20 +107,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    // Scroll-triggered auto-flip: when card reaches 50% of viewport, flip to back
-    document.querySelectorAll('.flip-card').forEach((card) => {
-      ScrollTrigger.create({
-        trigger: card,
-        start: 'top 55%',
-        end: 'top 20%',
-        onEnter: () => card.classList.add('flipped'),
-        onLeave: () => card.classList.remove('flipped'),
-        onEnterBack: () => card.classList.add('flipped'),
-        onLeaveBack: () => card.classList.remove('flipped')
-      });
-    });
-
-    // Entrance animation — cards scale up from below
+    // Entrance animation only — NO scroll-triggered flip
     gsap.fromTo('.flip-card',
       { opacity: 0, y: 60, scale: 0.92 },
       {
@@ -134,7 +121,6 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       }
     );
 
-    // Featured card entrance
     gsap.fromTo('.featured-flip-card',
       { opacity: 0, y: 50 },
       {

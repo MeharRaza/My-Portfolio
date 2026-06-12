@@ -10,9 +10,8 @@
   cursor: pointer;
   outline: none;
 
-  /* Flip on hover OR when .flipped class added by ScrollTrigger */
-  &:hover .flip-card-inner,
-  &.flipped .flip-card-inner {
+  /* Flip on hover only */
+  &:hover .flip-card-inner {
     transform: rotateY(180deg);
   }
 
