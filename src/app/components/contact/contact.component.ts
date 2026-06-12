@@ -51,6 +51,12 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
       label: 'github.com/MeharRaza',
       href: 'https://github.com/MeharRaza',
       ariaLabel: 'GitHub MeharRaza'
+    },
+    {
+      icon: 'linkedin',
+      label: 'linkedin.com/in/husnain-raza',
+      href: 'https://www.linkedin.com/in/husnain-raza-85596131a/',
+      ariaLabel: 'LinkedIn Husnain Raza'
     }
   ];
 
