@@ -2,7 +2,6 @@ import { Component, AfterViewInit, OnDestroy, PLATFORM_ID, Inject } from '@angul
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import VanillaTilt from 'vanilla-tilt';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,6 +16,8 @@ interface Project {
   live: string | null;
   featured: boolean;
   privateRepo: boolean;
+  image: string;
+  aspectRatio: string; // CSS aspect-ratio value
 }
 
 @Component({
@@ -27,6 +28,7 @@ interface Project {
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements AfterViewInit, OnDestroy {
+
   projects: Project[] = [
     {
       id: 'cctv-guardai',
@@ -38,7 +40,9 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       github: null,
       live: null,
       featured: true,
-      privateRepo: true
+      privateRepo: true,
+      image: 'assets/projects/cctv-guardai.png',
+      aspectRatio: '16/9'
     },
     {
       id: 'shopzee',
@@ -50,7 +54,9 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       github: 'https://github.com/MeharRaza/GlowMart',
       live: 'https://shopzee.me',
       featured: false,
-      privateRepo: false
+      privateRepo: false,
+      image: 'assets/projects/shopzee.png',
+      aspectRatio: '16/9'
     },
     {
       id: 'gym-mgmt',
@@ -62,7 +68,9 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       github: 'https://github.com/MeharRaza/Gym-Managment-System',
       live: null,
       featured: false,
-      privateRepo: false
+      privateRepo: false,
+      image: 'assets/projects/gym-mgmt.png',
+      aspectRatio: '16/9'
     },
     {
       id: 'student-form',
@@ -74,7 +82,9 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       github: 'https://github.com/MeharRaza/Student-Form',
       live: null,
       featured: false,
-      privateRepo: false
+      privateRepo: false,
+      image: 'assets/projects/student-form.png',
+      aspectRatio: '16/9'
     },
     {
       id: 'my-bot',
@@ -86,7 +96,9 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       github: 'https://github.com/MeharRaza/My-Bot',
       live: null,
       featured: false,
-      privateRepo: false
+      privateRepo: false,
+      image: 'assets/projects/my-bot.png',
+      aspectRatio: '16/9'
     }
   ];
 
@@ -95,35 +107,45 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
 
-    // Featured card
-    gsap.fromTo('.featured-card',
+    // Scroll-triggered auto-flip: when card reaches 50% of viewport, flip to back
+    document.querySelectorAll('.flip-card').forEach((card) => {
+      ScrollTrigger.create({
+        trigger: card,
+        start: 'top 55%',
+        end: 'top 20%',
+        onEnter: () => card.classList.add('flipped'),
+        onLeave: () => card.classList.remove('flipped'),
+        onEnterBack: () => card.classList.add('flipped'),
+        onLeaveBack: () => card.classList.remove('flipped')
+      });
+    });
+
+    // Entrance animation — cards scale up from below
+    gsap.fromTo('.flip-card',
+      { opacity: 0, y: 60, scale: 0.92 },
+      {
+        opacity: 1, y: 0, scale: 1,
+        duration: 0.65, stagger: 0.12, ease: 'power3.out',
+        scrollTrigger: {
+          trigger: '.projects-flip-grid',
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      }
+    );
+
+    // Featured card entrance
+    gsap.fromTo('.featured-flip-card',
       { opacity: 0, y: 50 },
       {
         opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
-        scrollTrigger: { trigger: '.featured-card', start: 'top 80%', toggleActions: 'play none none none' }
+        scrollTrigger: {
+          trigger: '.featured-flip-card',
+          start: 'top 80%',
+          toggleActions: 'play none none none'
+        }
       }
     );
-
-    // Regular cards
-    gsap.fromTo('.project-card',
-      { opacity: 0, scale: 0.9 },
-      {
-        opacity: 1, scale: 1, duration: 0.6, stagger: 0.12, ease: 'power3.out',
-        scrollTrigger: { trigger: '.projects-grid', start: 'top 82%', toggleActions: 'play none none none' }
-      }
-    );
-
-    // Vanilla-tilt
-    setTimeout(() => {
-      const cards = document.querySelectorAll<HTMLElement>('.tilt-card');
-      VanillaTilt.init(Array.from(cards), {
-        max: 8,
-        speed: 400,
-        glare: true,
-        'max-glare': 0.12,
-        scale: 1.03
-      });
-    }, 800);
   }
 
   ngOnDestroy(): void {

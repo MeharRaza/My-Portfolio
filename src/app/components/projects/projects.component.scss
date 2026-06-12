@@ -2,162 +2,260 @@
   background: var(--black);
 }
 
-/* ── Featured Card ── */
-.featured-card {
+/* ═══════════════════════════════════════
+   FLIP CARD BASE
+═══════════════════════════════════════ */
+.flip-card {
+  perspective: 1200px;
+  cursor: pointer;
+  outline: none;
+
+  /* Flip on hover OR when .flipped class added by ScrollTrigger */
+  &:hover .flip-card-inner,
+  &.flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+
+  /* Flip on keyboard focus too */
+  &:focus-visible .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+}
+
+.flip-card-inner {
   position: relative;
-  padding: 40px;
-  margin-bottom: 32px;
-  border-radius: 20px;
-  background: var(--surface-2);
-  overflow: hidden;
-  cursor: default;
-  will-change: opacity, transform;
-  transition: border-color 0.3s, box-shadow 0.3s;
-
-  &:hover {
-    border-color: rgba(124, 58, 237, 0.6);
-    box-shadow: 0 0 60px rgba(124, 58, 237, 0.15), 0 20px 60px rgba(0, 0, 0, 0.5);
-  }
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1);
+  will-change: transform;
 }
 
-.featured-glow {
+/* Both faces share positioning */
+.flip-card-front,
+.flip-card-back {
   position: absolute;
-  top: -80px;
-  right: -80px;
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.12) 0%, transparent 70%);
-  pointer-events: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-.featured-inner {
-  display: flex;
-  gap: 48px;
-  align-items: flex-start;
+/* ─── FRONT FACE ─── */
+.flip-card-front {
+  background: var(--surface-2);
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 24px;
+  .proj-screenshot {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .flip-card:hover & .proj-screenshot {
+    transform: scale(1.04);
   }
 }
 
-.featured-left {
-  flex: 1;
-}
-
-.featured-right {
-  flex: 0 0 280px;
+/* Gradient overlay on front */
+.front-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.4) 40%,
+    transparent 70%
+  );
   display: flex;
   flex-direction: column;
-  gap: 24px;
-
-  @media (max-width: 768px) {
-    flex: none;
-    width: 100%;
-  }
+  justify-content: flex-end;
+  padding: 20px;
 }
 
-.featured-top {
+.front-meta {
   display: flex;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 8px;
+  margin-bottom: 8px;
   flex-wrap: wrap;
 }
 
-.featured-label {
+.featured-star {
   font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 0.1em;
+  font-size: 0.65rem;
+  color: rgba(255, 255, 255, 0.5);
 }
 
-/* ── Project Grid ── */
-.projects-grid {
+.front-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 4px;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+}
+
+.front-hint {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: rgba(255, 255, 255, 0.45);
+  margin: 0;
+}
+
+/* ─── BACK FACE ─── */
+.flip-card-back {
+  transform: rotateY(180deg);
+  background: rgba(10, 10, 10, 0.97);
+  border: 1px solid rgba(124, 58, 237, 0.3);
+  box-shadow: inset 0 0 60px rgba(124, 58, 237, 0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-content {
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+}
+
+.back-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.back-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.back-desc {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.back-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.back-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+/* ═══════════════════════════════════════
+   FEATURED CARD — full width, taller
+═══════════════════════════════════════ */
+.featured-flip-card {
+  width: 100%;
+  height: 420px;
+  margin-bottom: 28px;
+  border-radius: 16px;
+  will-change: opacity, transform;
+
+  @media (max-width: 768px) {
+    height: 300px;
+  }
+
+  .flip-card-inner { border-radius: 16px; }
+
+  .back-content {
+    padding: 36px 40px;
+    flex-direction: row;
+    align-items: center;
+    gap: 48px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      padding: 24px;
+      gap: 16px;
+    }
+  }
+
+  .back-left {
+    flex: 1;
+  }
+
+  .back-right {
+    flex: 0 0 260px;
+
+    @media (max-width: 768px) {
+      flex: none;
+      width: 100%;
+    }
+  }
+
+  .back-title {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+  }
+
+  .back-desc {
+    font-size: 0.95rem;
+  }
+}
+
+/* ═══════════════════════════════════════
+   GRID: 2×2 for non-featured projects
+═══════════════════════════════════════ */
+.projects-flip-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;
+
+  .flip-card {
+    /* 16:9 aspect ratio — matches screenshot proportions */
+    aspect-ratio: 16 / 9;
+    border-radius: 16px;
+    will-change: opacity, transform;
+  }
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 }
 
-/* ── Project Card ── */
-.project-card {
-  padding: 28px;
-  border-radius: 16px;
-  background: var(--surface-2);
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  cursor: default;
-  will-change: opacity, transform;
-  transition: border-color 0.3s, box-shadow 0.3s;
-
-  &:hover {
-    border-color: rgba(124, 58, 237, 0.5);
-    box-shadow: 0 0 40px rgba(124, 58, 237, 0.12), 0 12px 40px rgba(0, 0, 0, 0.4);
-  }
-}
-
-.proj-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.proj-name {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--white);
-  line-height: 1.2;
-  margin: 0;
-}
-
-.proj-desc {
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
-  line-height: 1.6;
-  flex: 1;
-}
-
-.proj-stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: auto;
-}
-
-/* Actions */
-.proj-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  margin-top: 8px;
-}
-
+/* ═══════════════════════════════════════
+   LINKS
+═══════════════════════════════════════ */
 .proj-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
   font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.6);
   padding: 6px 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 6px;
-  transition: all 0.25s;
-
-  .proj-link-icon { transition: transform 0.3s; }
+  text-decoration: none;
+  transition: all 0.2s;
 
   &:hover {
     color: var(--violet-light);
     border-color: rgba(124, 58, 237, 0.5);
     background: rgba(124, 58, 237, 0.08);
-    .proj-link-icon { transform: rotate(15deg); }
   }
 
   &--live:hover {
