@@ -1,0 +1,180 @@
+/* Floating Action Buttons — bottom-right corner */
+
+.fab-container {
+  position: fixed;
+  bottom: 32px;
+  right: 28px;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  will-change: opacity, transform;
+
+  @media (max-width: 480px) {
+    bottom: 20px;
+    right: 16px;
+    gap: 12px;
+  }
+}
+
+/* Individual wrapper handles tooltip */
+.fab-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Tooltip */
+  .fab-tooltip {
+    position: absolute;
+    right: calc(100% + 12px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(10, 10, 10, 0.95);
+    border: 1px solid var(--border);
+    color: rgba(255, 255, 255, 0.85);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    transform: translateY(-50%) translateX(6px);
+  }
+
+  &:hover .fab-tooltip {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+/* Base FAB */
+.fab {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+  will-change: transform;
+  transform-style: preserve-3d;
+
+  &:hover {
+    transform: scale(1.12) translateY(-4px) !important; /* override GSAP float on hover */
+    .fab-ring-1 { animation-play-state: paused; }
+    .fab-ring-2 { animation-play-state: paused; }
+  }
+
+  &:active { transform: scale(0.96) !important; }
+}
+
+.fab-inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* ─── Resume FAB — violet ─── */
+.fab-resume {
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  box-shadow:
+    0 4px 16px rgba(124, 58, 237, 0.5),
+    0 0 0 1px rgba(124, 58, 237, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+
+  &:hover {
+    box-shadow:
+      0 8px 32px rgba(124, 58, 237, 0.7),
+      0 0 0 1px rgba(124, 58, 237, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* ─── WhatsApp FAB — green ─── */
+.fab-wa {
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  box-shadow:
+    0 4px 16px rgba(37, 211, 102, 0.5),
+    0 0 0 1px rgba(37, 211, 102, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+
+  &:hover {
+    box-shadow:
+      0 8px 32px rgba(37, 211, 102, 0.7),
+      0 0 0 1px rgba(37, 211, 102, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  }
+}
+
+/* ─── Glow layer ─── */
+.fab-glow {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  filter: blur(10px);
+  opacity: 0.4;
+  z-index: 0;
+  transition: opacity 0.3s;
+
+  .fab:hover & { opacity: 0.7; }
+}
+
+.fab-glow-violet {
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.9), transparent 70%);
+}
+
+.fab-glow-wa {
+  background: radial-gradient(circle, rgba(37, 211, 102, 0.9), transparent 70%);
+}
+
+/* ─── Pulsing rings ─── */
+.fab-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1px solid;
+  opacity: 0;
+}
+
+.fab-resume .fab-ring {
+  border-color: rgba(124, 58, 237, 0.6);
+}
+.fab-wa .fab-ring {
+  border-color: rgba(37, 211, 102, 0.6);
+}
+
+.fab-ring-1 {
+  animation: ring-pulse 2.5s ease-out infinite;
+}
+
+.fab-ring-2 {
+  animation: ring-pulse 2.5s ease-out infinite 0.8s;
+}
+
+@keyframes ring-pulse {
+  0%   { transform: scale(1);   opacity: 0.6; }
+  100% { transform: scale(2.2); opacity: 0; }
+}
+
+/* Responsive — slightly smaller on mobile */
+@media (max-width: 480px) {
+  .fab {
+    width: 48px;
+    height: 48px;
+
+    svg { width: 18px; height: 18px; }
+  }
+}

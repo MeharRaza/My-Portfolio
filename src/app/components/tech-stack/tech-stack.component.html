@@ -1,0 +1,50 @@
+<section class="section tech-section" id="skills" aria-labelledby="skills-heading">
+  <div class="container">
+
+    <div class="section-header">
+      <span class="section-tag">04 — Arsenal</span>
+      <h2 id="skills-heading">My Technical Arsenal</h2>
+      <p>Technologies I ship with daily — from frontend pixels to AI infrastructure.</p>
+    </div>
+
+    <div class="tech-groups-grid">
+      @for (group of groups; track group.label) {
+
+        <!-- OUTER GROUP BLOCK -->
+        <div class="group-block" [class]="'group-block--' + group.colorClass">
+
+          <!-- Group header inside the block -->
+          <div class="group-block-header">
+            <span class="group-icon" aria-hidden="true">{{ group.icon }}</span>
+            <h3 class="group-title">{{ group.label }}</h3>
+            <span class="group-count">{{ group.items.length }} skills</span>
+          </div>
+
+          <!-- Inner skill cards -->
+          <div class="skill-cards-wrap">
+            @for (item of group.items; track item.name) {
+              <div
+                class="skill-card"
+                [attr.aria-label]="item.name"
+                role="listitem">
+
+                <div class="skill-card-icon" aria-hidden="true">
+                  @if (item.devicon) {
+                    <i [class]="item.devicon + ' colored'" [style.color]="item.color"></i>
+                  } @else {
+                    <span class="skill-symbol" [style.color]="item.color">{{ item.symbol }}</span>
+                  }
+                </div>
+                <span class="skill-name">{{ item.name }}</span>
+                <div class="skill-shine" aria-hidden="true"></div>
+              </div>
+            }
+          </div>
+
+        </div>
+
+      }
+    </div>
+
+  </div>
+</section>

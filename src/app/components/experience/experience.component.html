@@ -1,0 +1,51 @@
+<section class="section exp-section" id="experience" aria-labelledby="exp-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">05 — Battlefield</span>
+      <h2 id="exp-heading">Where I've Shipped</h2>
+      <p>3 active internships — real products, real clients, real impact.</p>
+    </div>
+
+    <div class="exp-timeline" role="list">
+      <!-- Central line -->
+      <div class="timeline-center-line" aria-hidden="true"></div>
+
+      @for (exp of experiences; track exp.company; let i = $index) {
+        <div
+          class="exp-row"
+          [class.left]="exp.side === 'left'"
+          [class.right]="exp.side === 'right'"
+          role="listitem">
+
+          <!-- Dot on center line -->
+          <div class="center-dot" aria-hidden="true">
+            <div class="center-dot-inner"></div>
+          </div>
+
+          <!-- Card -->
+          <article class="exp-card glass" [attr.aria-label]="exp.company + ' experience'">
+            <div class="exp-card-header">
+              <div class="exp-meta">
+                <h3 class="exp-company">{{ exp.company }}</h3>
+                <div class="exp-tags">
+                  <span class="badge badge-white">{{ exp.period }}</span>
+                  <span class="badge" [class]="exp.typeClass">{{ exp.type }}</span>
+                </div>
+              </div>
+              <span class="exp-role">{{ exp.role }}</span>
+            </div>
+
+            <ul class="exp-bullets" role="list">
+              @for (bullet of exp.bullets; track bullet) {
+                <li class="exp-bullet">
+                  <span class="bullet-dot" aria-hidden="true">▸</span>
+                  {{ bullet }}
+                </li>
+              }
+            </ul>
+          </article>
+        </div>
+      }
+    </div>
+  </div>
+</section>

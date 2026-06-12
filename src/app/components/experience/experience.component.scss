@@ -1,0 +1,145 @@
+.exp-section {
+  background: var(--surface-1);
+}
+
+/* Timeline wrapper */
+.exp-timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.timeline-center-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(to bottom, var(--violet), rgba(124, 58, 237, 0.1));
+  transform: translateX(-50%);
+
+  @media (max-width: 768px) { display: none; }
+}
+
+/* Each row */
+.exp-row {
+  position: relative;
+  display: flex;
+  width: 100%;
+
+  &.left {
+    justify-content: flex-start;
+    padding-right: calc(50% + 32px);
+
+    .center-dot { left: calc(50% - 9px); }
+  }
+
+  &.right {
+    justify-content: flex-end;
+    padding-left: calc(50% + 32px);
+
+    .center-dot { left: calc(50% - 9px); }
+  }
+
+  @media (max-width: 768px) {
+    &.left, &.right {
+      padding: 0;
+      justify-content: stretch;
+    }
+  }
+}
+
+.center-dot {
+  position: absolute;
+  top: 28px;
+  width: 18px;
+  height: 18px;
+  z-index: 2;
+
+  @media (max-width: 768px) { display: none; }
+}
+
+.center-dot-inner {
+  width: 18px;
+  height: 18px;
+  background: var(--violet);
+  border-radius: 50%;
+  border: 3px solid var(--black);
+  box-shadow: 0 0 12px rgba(124, 58, 237, 0.6);
+}
+
+/* Card */
+.exp-card {
+  background: var(--surface-2);
+  padding: 28px;
+  border-radius: 16px;
+  width: 100%;
+  will-change: opacity, transform;
+  transition: border-color 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 0 32px rgba(124, 58, 237, 0.12);
+  }
+}
+
+.exp-card-header {
+  margin-bottom: 20px;
+}
+
+.exp-meta {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.exp-company {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--white);
+}
+
+.exp-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.exp-role {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--violet-light);
+  letter-spacing: 0.04em;
+}
+
+/* Bullets */
+.exp-bullets {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exp-bullet {
+  display: flex;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.bullet-dot {
+  color: var(--violet);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+@media (max-width: 768px) {
+  .exp-timeline { gap: 24px; }
+  .exp-card { padding: 20px; }
+}

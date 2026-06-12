@@ -1,0 +1,73 @@
+<section class="section about-section" id="about" aria-labelledby="about-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">01 — The Story</span>
+      <h2 id="about-heading">Who Is Husnain?</h2>
+    </div>
+
+    <div class="about-grid">
+      <!-- LEFT: Timeline -->
+      <div class="timeline-col" aria-label="Career timeline">
+        <div class="timeline-line" aria-hidden="true"></div>
+
+        @for (item of timelineItems; track item.year; let i = $index) {
+          <div class="timeline-item" [class.active]="item.active">
+            <div class="timeline-node" aria-hidden="true">
+              <div class="node-pulse"></div>
+            </div>
+            <div class="timeline-content">
+              <span class="timeline-year">{{ item.year }}</span>
+              <h4 class="timeline-event">{{ item.event }}</h4>
+              <p class="timeline-detail">{{ item.detail }}</p>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- RIGHT: Bio + Stats -->
+      <div class="about-right">
+        <div class="about-bio">
+          <div class="bio-tag">About Me</div>
+          <p class="bio-text">
+            I don't just write code &mdash; I build systems that work in production.
+          </p>
+          <p class="bio-body">
+            From SSO authentication platforms to AI-powered surveillance, I've shipped
+            real products for real clients. Currently holding 3 active internships while
+            maintaining a 3.99 CGPA in Software Engineering.
+          </p>
+          <p class="bio-body">
+            My goal: Full Stack Developer who speaks both frontend elegance and
+            AI intelligence.
+          </p>
+
+          <div class="bio-links">
+            <a
+              href="https://github.com/MeharRaza"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="bio-link"
+              aria-label="GitHub MeharRaza">
+              <svg class="github-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/>
+              </svg>
+              github.com/MeharRaza
+            </a>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid" aria-label="Key statistics">
+          @for (stat of stats; track stat.label) {
+            <div class="stat-card glass" role="figure" [attr.aria-label]="stat.value + ' ' + stat.label">
+              <div class="stat-value">
+                {{ stat.current }}
+              </div>
+              <div class="stat-label">{{ stat.label }}</div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

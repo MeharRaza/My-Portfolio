@@ -1,0 +1,95 @@
+<nav class="navbar" [class.scrolled]="isScrolled()" role="navigation" aria-label="Main navigation">
+  <div class="nav-container">
+    <!-- Logo -->
+    <a href="#" class="nav-logo" aria-label="Husnain Raza - Home" (click)="scrollTo('#hero', $event)">
+      <span class="logo-monogram">HR</span>
+      <span class="logo-text">Husnain Raza</span>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <ul class="nav-links" role="list">
+      @for (link of navLinks; track link.label) {
+        <li>
+          <a
+            [href]="link.href"
+            class="nav-link"
+            (click)="scrollTo(link.href, $event)"
+            [attr.aria-label]="'Navigate to ' + link.label + ' section'">
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+
+    <!-- CTA -->
+    <div class="nav-actions">
+      <a
+        href="assets/Husnain-Raza-CV.pdf"
+        download="Husnain-Raza-CV.pdf"
+        class="btn btn-ghost resume-btn"
+        aria-label="Download Husnain's Resume"
+        (click)="downloadResume($event)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Resume
+      </a>
+      <a
+        href="mailto:meharraza371@gmail.com"
+        class="btn btn-primary hire-btn"
+        aria-label="Hire Husnain Raza">
+        Hire Me
+      </a>
+
+      <!-- Hamburger -->
+      <button
+        class="hamburger"
+        [class.active]="mobileOpen()"
+        (click)="toggleMobile()"
+        aria-label="Toggle mobile menu"
+        [attr.aria-expanded]="mobileOpen()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="mobileOpen()" role="menu">
+    <ul role="list">
+      @for (link of navLinks; track link.label) {
+        <li>
+          <a
+            [href]="link.href"
+            class="mobile-link"
+            role="menuitem"
+            (click)="scrollTo(link.href, $event)">
+            {{ link.label }}
+          </a>
+        </li>
+      }
+      <li>
+        <a href="mailto:meharraza371@gmail.com" class="btn btn-primary mobile-hire" role="menuitem">
+          Hire Me
+        </a>
+      </li>
+      <li>
+        <a
+          href="assets/Husnain-Raza-CV.pdf"
+          download="Husnain-Raza-CV.pdf"
+          class="btn btn-ghost mobile-hire"
+          role="menuitem">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Download Resume
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>

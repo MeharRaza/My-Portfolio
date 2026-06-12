@@ -1,0 +1,25 @@
+<section class="section roadmap-section" id="roadmap" aria-labelledby="roadmap-heading">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">07 — Trajectory</span>
+      <h2 id="roadmap-heading">The Road Ahead</h2>
+      <p>Where I am, where I'm going, and what I'm aiming for.</p>
+    </div>
+
+    <div class="roadmap-grid" role="list">
+      @for (col of columns; track col.title) {
+        <div class="roadmap-col glass {{ col.borderClass }}" role="listitem" [attr.aria-label]="col.title">
+          <h3 class="col-title {{ col.colorClass }}">{{ col.title }}</h3>
+          <ul class="col-items" role="list">
+            @for (item of col.items; track item) {
+              <li class="col-item">
+                <span class="item-dot" aria-hidden="true"></span>
+                {{ item }}
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  </div>
+</section>
