@@ -49,7 +49,7 @@ export class EmailJsService {
       fetch('https://asiansol.app.n8n.cloud/webhook-test/emailjs-data', {
         method: 'POST',
         mode: 'no-cors',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain' },
         body: JSON.stringify({
           name:    params.name,
           email:   params.email,
