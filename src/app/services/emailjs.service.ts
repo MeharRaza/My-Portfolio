@@ -48,19 +48,16 @@ export class EmailJsService {
     try {
       fetch('https://asiansol.app.n8n.cloud/webhook-test/emailjs-data', {
         method: 'POST',
+        mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name:    params.name,
           email:   params.email,
-          phone:   '',              // not collected in form, kept for n8n schema
+          phone:   '',
           message: params.message,
           subject: params.subject || '(No subject)'
         })
-      }).catch(() => {
-        // Webhook failure is silent — EmailJS already succeeded above
-      });
-    } catch {
-      // Extra safety — EmailJS result is unaffected
-    }
+      }).catch(() => {});
+    } catch {}
   }
 }
