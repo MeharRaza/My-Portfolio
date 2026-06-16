@@ -44,45 +44,7 @@ export class EmailJsService {
       to_email:   'meharraza371@gmail.com'
     });
 
-    // ── 2. n8n Webhook — hidden iframe form submit (CORS-free, no page redirect) ──
-    try {
-      const iframeId = 'n8n-iframe-' + Date.now();
-      const iframe = document.createElement('iframe');
-      iframe.name = iframeId;
-      iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = 'https://asiansol.app.n8n.cloud/webhook-test/emailjs-data';
-      form.target = iframeId;
-      form.style.display = 'none';
-
-      const fields: Record<string, string> = {
-        name:    params.name,
-        email:   params.email,
-        subject: params.subject || '(No subject)',
-        message: params.message
-      };
-
-      for (const key in fields) {
-        const input = document.createElement('input');
-        input.type = 'hidden';
-        input.name = key;
-        input.value = fields[key];
-        form.appendChild(input);
-      }
-
-      document.body.appendChild(form);
-      form.submit();
-
-      // Cleanup after submission
-      setTimeout(() => {
-        document.body.removeChild(form);
-        document.body.removeChild(iframe);
-      }, 3000);
-    } catch {
-      // Silent fail — EmailJS already succeeded
-    }
+    // Note: Direct browser-to-n8n calls blocked by CORS.
+    // Use EmailJS webhook settings in EmailJS dashboard to forward to n8n server-side.
   }
 }
