@@ -31,23 +31,37 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
 
   projects: Project[] = [
     {
-      id: 'cctv-guardai',
-      type: 'AI + Full Stack | Production',
+      id: 'autoposter-ai',
+      type: 'AI + Workflow Automation | Production',
       typeClass: 'badge-violet',
-      name: 'CCTV GuardAI',
-      description: 'AI-powered real-time surveillance and monitoring platform with intelligent analytics — built during internship at Asian Solution.',
-      stack: ['Python', 'Angular', 'AI/ML', 'REST APIs', 'SSO/IDP'],
+      name: 'Autoposter.ai',
+      description: 'Automated Client Onboarding & Social Publishing Platform with LinkedIn OAuth 2.0, ASP.NET Core, n8n workflow automation, encrypted token handling, and Groq LLM APIs for customized content generation.',
+      stack: ['ASP.NET Core', 'n8n', 'LinkedIn OAuth', 'Groq LLM', 'Webhooks'],
       github: null,
       live: null,
       featured: true,
       privateRepo: true,
-      image: 'assets/projects/cctv-guardai.png',
+      image: 'assets/projects/autoposter-ai.png',
+      aspectRatio: '16/9'
+    },
+    {
+      id: 'medisoft-pro',
+      type: 'Enterprise Management | Full Stack',
+      typeClass: 'badge-cyan',
+      name: 'MediSoft Pro',
+      description: 'Enterprise-grade pharmacy management solution processing 3000+ transactions and 2000+ products with Fast Billing POS, FIFO inventory control, batch expiry monitoring, and comprehensive reporting suite.',
+      stack: ['C#', 'WinForms', 'SQL Server', 'Crystal Reports', 'FIFO'],
+      github: null,
+      live: null,
+      featured: false,
+      privateRepo: true,
+      image: 'assets/projects/medisoft-pro.png',
       aspectRatio: '16/9'
     },
     {
       id: 'shopzee',
       type: 'E-Commerce | Full Stack',
-      typeClass: 'badge-cyan',
+      typeClass: 'badge-violet',
       name: 'ShopZee',
       description: 'Full-featured cosmetics e-commerce platform with product catalog, cart, authentication, and CI/CD pipeline.',
       stack: ['Angular', 'Python', 'FastAPI', 'PostgreSQL', 'Railway'],
@@ -61,7 +75,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
     {
       id: 'gym-mgmt',
       type: 'Management Platform | Full Stack',
-      typeClass: 'badge-violet',
+      typeClass: 'badge-cyan',
       name: 'Gym Management System',
       description: 'Comprehensive gym platform — member registration, attendance tracking, billing, role-based dashboards.',
       stack: ['Angular', 'Python', 'SQLite'],

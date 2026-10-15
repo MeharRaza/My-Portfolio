@@ -209,8 +209,10 @@ export class HeroComponent implements AfterViewInit, OnDestroy {
     // Role line (smaller, below name)
     this.typedRole = new Typed('#typed-role', {
       strings: [
+        'Agentic AI Expert',
         'Full Stack Developer',
         'AI Engineer',
+        'Workflow Automation Expert',
         'Angular Specialist',
         'Python Developer',
         'Problem Solver'

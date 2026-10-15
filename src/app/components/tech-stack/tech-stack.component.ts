@@ -69,7 +69,8 @@ export class TechStackComponent implements AfterViewInit, OnDestroy {
       items: [
         { name: 'LangChain',  devicon: '', symbol: '⛓', color: '#06b6d4' },
         { name: 'NLP',        devicon: '', symbol: '◎', color: '#7c3aed' },
-        { name: 'Automation', devicon: '', symbol: '⚙', color: '#a78bfa' }
+        { name: 'Automation', devicon: '', symbol: '⚙', color: '#a78bfa' },
+        { name: 'Workflow Automation', devicon: '', symbol: '⚡', color: '#8b5cf6' }
       ]
     },
     {
