@@ -3,48 +3,29 @@
 }
 
 /* ═══════════════════════════════════════
-   FLIP CARD BASE
+   OVERLAY SLIDE CARD (no flip)
 ═══════════════════════════════════════ */
 .flip-card {
-  perspective: 1200px;
   cursor: pointer;
   outline: none;
-
-  /* Flip on hover only */
-  &:hover .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-
-  /* Flip on keyboard focus too */
-  &:focus-visible .flip-card-inner {
-    transform: rotateY(180deg);
-  }
+  position: relative;
+  overflow: hidden;
 }
 
 .flip-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.75s cubic-bezier(0.4, 0.2, 0.2, 1);
-  will-change: transform;
 }
 
-/* Both faces share positioning */
-.flip-card-front,
-.flip-card-back {
+/* Image layer (always visible) */
+.flip-card-front {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   border-radius: 16px;
   overflow: hidden;
-}
-
-/* ─── FRONT FACE ─── */
-.flip-card-front {
   background: var(--surface-2);
 
   .proj-screenshot {
@@ -53,28 +34,34 @@
     object-fit: cover;
     object-position: top center;
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s ease, filter 0.4s ease;
   }
 
   .flip-card:hover & .proj-screenshot {
-    transform: scale(1.04);
+    transform: scale(1.08);
+    filter: blur(4px) brightness(0.5);
   }
 }
 
-/* Gradient overlay on front */
+/* Gradient overlay on front (minimal) */
 .front-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(0, 0, 0, 0.9) 0%,
-    rgba(0, 0, 0, 0.4) 40%,
+    rgba(0, 0, 0, 0.85) 0%,
+    rgba(0, 0, 0, 0.3) 40%,
     transparent 70%
   );
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   padding: 20px;
+  transition: opacity 0.3s ease;
+}
+
+.flip-card:hover .front-overlay {
+  opacity: 0;
 }
 
 .front-meta {
@@ -107,15 +94,29 @@
   margin: 0;
 }
 
-/* ─── BACK FACE ─── */
+/* Details overlay (slides up from bottom on hover) */
 .flip-card-back {
-  transform: rotateY(180deg);
-  background: rgba(10, 10, 10, 0.97);
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.95);
   border: 1px solid rgba(124, 58, 237, 0.3);
   box-shadow: inset 0 0 60px rgba(124, 58, 237, 0.05);
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
+  
+  /* Start below, slide up on hover */
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2;
+}
+
+.flip-card:hover .flip-card-back,
+.flip-card:focus-visible .flip-card-back {
+  transform: translateY(0);
 }
 
 .back-content {
