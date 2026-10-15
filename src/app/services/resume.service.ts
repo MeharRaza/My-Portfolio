@@ -5,7 +5,7 @@ export class ResumeService {
   async download(): Promise<void> {
     try {
       // Fetch as ArrayBuffer
-      const res = await fetch('/assets/Husnain-Raza-CV.pdf');
+      const res = await fetch('/assets/Husnain_Raza___CV.pdf');
       if (!res.ok) throw new Error(`${res.status}`);
       const buffer = await res.arrayBuffer();
 
@@ -25,7 +25,7 @@ export class ResumeService {
     } catch {
       // Last resort fallback
       const a = document.createElement('a');
-      a.href     = '/assets/Husnain-Raza-CV.pdf';
+      a.href     = '/assets/Husnain_Raza___CV.pdf';
       a.download = 'Husnain-Raza-CV.pdf';
       a.target   = '_blank';
       document.body.appendChild(a);
